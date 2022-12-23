@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class LeetCode{
+class LeetCode{
     String question;
     public LeetCode(String a){
         this.question = a;
