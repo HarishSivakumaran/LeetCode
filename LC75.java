@@ -10,13 +10,15 @@ class Solution {
                 nums[i] = nums[l];
                 nums[l] = temp;
                 l++;
+                i++;
             }else if(nums[i] == 2){
                 temp = nums[i];
                 nums[i] = nums[r];
                 nums[r] = temp;
                 r--;
+            }else{
+                i++;
             }
-            i++;
         }        
     }
 }
