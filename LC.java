@@ -1,57 +1,26 @@
-// 451. Sort Characters By Frequency
+// 459. Repeated Substring Pattern
 
 class Solution {
-    class Node{
-        char val;
-        Integer freq = 0;
+    public boolean repeatedSubstringPattern(String s) {
 
-        Node(char val){
-            this.val = val;
-        }
-    }
-    public String frequencySort(String s) {
+        int l = 0;
 
-    Node[] count = new Node[123];
+        for (int i = 0; i < s.length() / 2; i++) {
+            String currSub = s.substring(0, i + 1);
 
-    for(int i = 0; i < 123; i++){
-        count[i] = new Node((char)i);
-    }
+            if (s.length() % currSub.length() != 0)
+                continue;
 
-     for(int i = 0; i < s.length(); i++){
-        count[s.charAt(i)].freq++;
-    }
+            int jump = currSub.length(), j = jump;
 
-    Arrays.sort(count, (p1,p2)->p2.freq-p1.freq);
-    StringBuilder str = new StringBuilder();
-
-    for(Node c : count){
-        if (c.freq == 0) break;
-        for(int i = 0; i < c.freq; i++){
-            str.append(c.val);
+            while (j < s.length() && currSub.equals(s.substring(j, j + jump))) {
+                j += jump;
+                if (j == s.length())
+                    return true;
+            }
         }
 
+        return false;
+
     }
-
-
-
-    //     HashMap<Character, Integer> count = new HashMap();
-
-    //     for(int i = 0; i < s.length(); i++){
-    //         count.put(s.charAt(i), count.getOrDefault(s.charAt(i), 0) + 1);
-    //     }
-
-    //     PriorityQueue<String> pq = new PriorityQueue<String>((a,b)-> b.length()-a.length());
-    //     StringBuilder str = new StringBuilder();
-
-    //     for(Map.Entry<Character, Integer> entry : count.entrySet()){
-    //         str = new StringBuilder();
-    //         for(int i = 0; i < entry.getValue(); i++){
-    //             str.append(entry.getKey());
-    //         }
-    //         pq.add(str.toString());       
-    // }
-
-   
-    return str.toString();
-}
 }
