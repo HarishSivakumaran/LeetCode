@@ -14,27 +14,44 @@
  * }
  */
 class Solution {
-    List<Integer> out = new ArrayList();
-    List<TreeNode> nodes = new ArrayList();
-    int level = 0;
+    TreeNode firstNode = null, secNode = null, prev = new TreeNode(Integer.MIN_VALUE);
     public void recoverTree(TreeNode root) {
-        if(root == null) return;
+        dfs(root);
 
-        int l = level++;
+        int temp = firstNode.val;
+        firstNode.val = secNode.val;
+        secNode.val = temp;
 
-        recoverTree(root.left);
+        // if(l == 0){
+        //     long prev = Long.MIN_VALUE, next = Long.MAX_VALUE, curr = 0;
+        //     TreeNode biggerThanNeigh = null, smallerThanNeigh = null;
+        //     for(int i = 0; i < nodes.size(); i++) {
+        //         prev = i-1 >= 0 ? nodes.get(i-1).val : Long.MIN_VALUE;
+        //         curr = nodes.get(i).val;
+        //         next = i+1 < nodes.size() ? nodes.get(i+1).val : Long.MAX_VALUE;
+        //         if(biggerThanNeigh == null && Long.compare(curr, prev) > 0 && Long.compare(curr, next) > 0) 
+        //             biggerThanNeigh = nodes.get(i);  
+            
+        //         if(biggerThanNeigh != null && Long.compare(curr, prev) < 0 && Long.compare(curr, next) < 0) 
+        //             smallerThanNeigh = nodes.get(i);  
+        //     }
 
-        out.add(root.val);
-        nodes.add(root);
+        //     int temp = biggerThanNeigh.val;
+        //     biggerThanNeigh.val = smallerThanNeigh.val;
+        //     smallerThanNeigh.val = temp;
+        // }
 
-        recoverTree(root.right);
+    }
 
-        if(l == 0){
-            Collections.sort(out);
-            for(int i = 0; i < out.size(); i++) {
-                nodes.get(i).val = out.get(i);
-            }
-        }
+    private void dfs(TreeNode node){
+        if(node == null) return;
+        dfs(node.left);
 
+        //logic
+        if(firstNode == null && prev.val > node.val) firstNode = prev;
+        if(firstNode != null && node.val <= prev.val) secNode = node;
+        prev = node;
+
+        dfs(node.right);
     }
 }
