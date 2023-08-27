@@ -1,6 +1,6 @@
 class Solution {
     public int minOperations(List<Integer> nums, int target) {
-        int sum = 0;
+        long sum = 0;
         int[] count = new int[32];
         for(int n : nums) {
             sum += n;
@@ -16,16 +16,17 @@ class Solution {
                 if(count[i] > 0){
                     count[i]--;
                 } else {
-                    missedBit = i;
+                    missedBit = Math.min(missedBit, i);
                 }
             }
 
             if(count[i] > 0 && missedBit < i) {
-                ans = i-missedBit;
+                ans += i-missedBit;
                 count[i]--;
                 missedBit = 32;
             }
-            count[Math.max(0, i-1)] += count[i]/2; 
+            if(i < 31)
+                count[i+1] += count[i]/2; 
         }
 
         return ans;
