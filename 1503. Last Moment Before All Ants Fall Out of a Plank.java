@@ -1,14 +1,8 @@
 class Solution {
-    public int getLastMoment(int n, int[] left, int[] right) {
+    public int getLastMoment(int t, int[] left, int[] right) {
         int ans = 0;
-        for (int num : left) {
-            ans = Math.max(ans, num);
-        }
-        
-        for (int num : right) {
-            ans = Math.max(ans, n - num);
-        }
-        
+        for(int n : left) if(n > ans) ans = n;
+        for(int n : right) if(t-n > ans) ans = t-n;
         return ans;
     }
 }
