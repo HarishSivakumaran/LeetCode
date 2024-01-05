@@ -19,7 +19,7 @@ class Solution {
                 int r = curr[0] + d[0], c = curr[1] + d[1];
                 if(r < 0 || r >= heights.length || c < 0 || c >= heights[0].length || heights[r][c] == -1) continue;
                 pq.add(new int[] {r, c, Math.max(curr[2], Math.abs(val-heights[r][c]))});
-            }
+            } 
 
         }
 
